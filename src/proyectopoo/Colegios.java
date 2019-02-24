@@ -36,8 +36,8 @@ public class Colegios {
             file = new FileOutputStream("registrocolegios.dat",true);
             data = new DataOutputStream(file);
            
-            identificacion = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese la identificacion del estudiante:"));
-            nombre = JOptionPane.showInputDialog(null,"Ingrese el nombre del estudiante:");
+            identificacion = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese la identificacion del colegio:"));
+            nombre = JOptionPane.showInputDialog(null,"Ingrese el nombre del colegio:");
             localidad = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el codigo de la localidad:"));
             cupos_disp = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese los cupos disponibles: "));
             
@@ -73,8 +73,6 @@ public class Colegios {
     
     void mostrarColegios(){
         
-         
-         
          FileInputStream fil = null;
         DataInputStream dat = null;
         int n;
@@ -115,6 +113,48 @@ public class Colegios {
                 System.out.println(e.getMessage());
             }
         }
+    }
+    
+    int mostrarCuposLocalidad(Integer numero) {
+        FileInputStream fil = null;
+        DataInputStream dat = null;
+        int n=0;
+
+        try {
+            fil = new FileInputStream("registrocolegios.dat");
+            dat = new DataInputStream(fil);
+
+            while (true) {
+                int identificacion = dat.readInt();
+                String nombre = dat.readUTF();
+                int localidad = dat.readInt();
+                int cupos_disp = dat.readInt();
+                Integer id = localidad;
+                
+                if(id.compareTo(numero)==0){
+                    n=n+cupos_disp;
+                }
+                
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (EOFException e) {
+            System.out.println("Fin del Archivo colegios");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (fil != null) {
+                    fil.close();
+                }
+                if (dat != null) {
+                    dat.close();
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return n;
     }
 }
     

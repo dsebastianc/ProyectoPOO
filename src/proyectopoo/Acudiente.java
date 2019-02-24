@@ -126,5 +126,57 @@ public class Acudiente extends Persona {
         }
     }
   
+    void promedioIngreso(){
+         FileInputStream fil = null;
+        DataInputStream dat = null;
+        int n=0;
+        int promedio=0;
+        int total_acudi= 0;
+        
+        try{
+            fil = new FileInputStream("registroacudiente.dat");
+            dat = new DataInputStream(fil);
+            
+            while(true){
+                identificacion = dat.readInt();
+                apellido = dat.readUTF();
+                nombre = dat.readUTF();
+                telefono = dat.readInt();
+                ingresos = dat.readInt();
+                tipo_acu = dat.readInt();
+                
+            n = n + ingresos ;
+                total_acudi++;
+                
+            }
+        }
+          catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(EOFException e){
+            System.out.println("Fin del Archivo acudientes");
+        }catch(IOException e){   
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(dat != null){
+                    dat.close();
+                }
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        promedio = n/total_acudi ;
+        
+        JOptionPane.showMessageDialog(null,"el valos promedio de los ingresos de ls acudientes es: "+promedio );
+    
+        
+    }
     
 }

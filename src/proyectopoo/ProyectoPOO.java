@@ -64,7 +64,11 @@ public class ProyectoPOO {
                 Colegios colegio = new Colegios();
                 colegio.registroColegio();
                 break;
-                
+            case 3:
+                Localidad l = new Localidad();
+                int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el codifgo de la localidad"));
+                l.mostrarCupoLocalidad(id);
+                break;
             default: JOptionPane.showMessageDialog(null,"Gracias por utilizar el programa");          
                      break;
         }
