@@ -5,7 +5,10 @@
  */
 package proyectopoo;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,6 +24,10 @@ public class Acudiente extends Persona {
     int ingresos;
     int tipo_acu;
 
+    public Acudiente(){
+        
+    }
+    
     public Acudiente(int identificacion, String apellido, String nombre, int telefono, int ingresos, int tipo_acu) {
         super(identificacion, apellido, nombre);
         this.telefono = telefono;
@@ -37,15 +44,10 @@ public class Acudiente extends Persona {
         try{
             file = new FileOutputStream("registroacudiente.dat",true);
             data = new DataOutputStream(file);
-           
-            identificacion = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese la identificacion del acudiente:"));
-            nombre = JOptionPane.showInputDialog(null,"Ingrese el nombre del acudiente:");
-            telefono = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el telefono del acudiente:"));
-            ingresos = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese los ingresos del acudiente:"));
-            tipo_acu = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el tipo de acudiente(padre o madre (1) ,otro familiar (2)): "));
-            
+                  
             
             data.writeInt(identificacion);
+            data.writeUTF(apellido);
             data.writeUTF(nombre);
             data.writeInt(telefono);
             data.writeInt(ingresos);
@@ -67,6 +69,55 @@ public class Acudiente extends Persona {
                 }
                 if(data != null){
                     data.close();
+                }
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
+    void mostrarAcudiente(){
+        
+         
+         
+         FileInputStream fil = null;
+        DataInputStream dat = null;
+        int n;
+        
+        try{
+            fil = new FileInputStream("registroacudiente.dat");
+            dat = new DataInputStream(fil);
+            
+            while(true){
+                identificacion = dat.readInt();
+                apellido = dat.readUTF();
+                nombre = dat.readUTF();
+                telefono = dat.readInt();
+                ingresos = dat.readInt();
+                tipo_acu = dat.readInt();
+                
+            
+                JOptionPane.showMessageDialog(null,"Identificación acudiente: "+identificacion+"\nNombre del acudiente: "+nombre+" "+apellido
+                        +"\nTelefono del acudiente: "+telefono+"\nIngresos del acudiente: "+ingresos+"\nTipo de acudiente: "+tipo_acu);
+                      //  }
+            }
+        }
+          catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(EOFException e){
+            System.out.println("Fin del Archivo acudientes");
+        }catch(IOException e){   
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(dat != null){
+                    dat.close();
                 }
             }
             catch (IOException e){

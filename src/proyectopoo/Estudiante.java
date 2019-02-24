@@ -23,9 +23,13 @@ public class Estudiante extends Persona {
     String direccion;
     int edad;
     int curso;
-    Localidad localidad;
+    int localidad;
 
-    public Estudiante(int identificacion, String apellido, String nombre, String direccion, int edad, int curso, Localidad localidad) {
+    public Estudiante(){
+        
+    }
+    
+    public Estudiante(int identificacion, String apellido, String nombre, String direccion, int edad, int curso, int localidad) {
         super(identificacion, apellido, nombre);
         this.direccion = direccion;
         this.edad = edad;
@@ -34,31 +38,19 @@ public class Estudiante extends Persona {
     }
     
     
-    void registroEstudiante(){  
+    public void registroEstudiante(){  
          FileOutputStream file = null;
         DataOutputStream data = null;
-        int n;
-        
         try{
             file = new FileOutputStream("registroestudiantes.dat",true);
             data = new DataOutputStream(file);
-           
-            identificacion = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese la identificacion del estudiante:"));
-            nombre = JOptionPane.showInputDialog(null,"Ingrese el nombre del estudiante:");
-            direccion = JOptionPane.showInputDialog(null,"Ingrese la direccion del estudiante:");
-            localidad = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el codigo de la localidad:"));
-            edad = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese la edad del estudiante:"));
-            curso = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el curso al que desea ingresar(1-11): "));
-            
-            
             data.writeInt(identificacion);
+            data.writeUTF(apellido);
             data.writeUTF(nombre);
             data.writeUTF(direccion);
             data.writeInt(localidad);
             data.writeInt(edad);
             data.writeInt(curso);
-            
-            
         }
         catch(FileNotFoundException e){
             System.out.println(e.getMessage());
@@ -83,9 +75,6 @@ public class Estudiante extends Persona {
     }
     
       void mostrarEstudiante(){
-        
-         
-         
          FileInputStream fil = null;
         DataInputStream dat = null;
         int n;
@@ -96,20 +85,22 @@ public class Estudiante extends Persona {
             
             while(true){
                 identificacion = dat.readInt();
+                apellido = dat.readUTF();
                 nombre = dat.readUTF();
                 direccion = dat.readUTF();
                 edad = dat.readInt();
                 curso = dat.readInt();
-                
+                localidad = dat.readInt();
             
-                JOptionPane.showMessageDialog(null,"Identificación estudiante: "+identificacion+"\nNombre del estudiante: "+nombre);
+                JOptionPane.showMessageDialog(null,"Identificación estudiante: "+identificacion+"\nNombre del estudiante: "+nombre+" "+apellido
+                        +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso);
                       //  }
             }
         }
           catch(FileNotFoundException e){
             System.out.println(e.getMessage());
         }catch(EOFException e){
-            System.out.println("Fin del Archivo");
+            System.out.println("Fin del Archivo estudiantes");
         }catch(IOException e){   
             System.out.println(e.getMessage());
         }

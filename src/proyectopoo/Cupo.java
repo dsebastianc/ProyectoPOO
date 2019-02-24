@@ -18,12 +18,21 @@ import javax.swing.JOptionPane;
 public class Cupo {
     int num_cupo;
     Date fecha_cupo; 
-    
-    
-    Cupo(){
-        
+    int idEstudiante;
+    int idColegio;
+    int codigoLocalidad;
+
+    public Cupo(int num_cupo, int idEstudiante, int idColegio, int codigoLocalidad) {
+        this.num_cupo = num_cupo;
+        this.idEstudiante = idEstudiante;
+        this.idColegio = idColegio;
+        this.codigoLocalidad = codigoLocalidad;
         fecha_cupo = new Date();
-        
+    }
+    
+    
+               
+    void registrarCupo(){        
         int localidad;
     
          FileOutputStream file = null;
@@ -63,9 +72,7 @@ public class Cupo {
                 System.out.println(e.getMessage());
             }
         }
-    }
-               
-        
+    }    
     
     void fecha_cupo(){
         JOptionPane.showMessageDialog(null,"Fecha de asignacion de cupo"+fecha_cupo);

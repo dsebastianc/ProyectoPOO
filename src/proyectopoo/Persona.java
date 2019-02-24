@@ -16,10 +16,16 @@ public class Persona {
      String nombre;
      
      
+    public Persona(){
+        
+    } 
+     
     public Persona(int identificacion, String apellido, String nombre){
         this.identificacion = identificacion;
         this.apellido = apellido;
         this.nombre = nombre;
     }
+    
+    
     
 }

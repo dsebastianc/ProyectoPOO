@@ -28,9 +28,7 @@ public class Colegios {
         this.localidad = localidad;
         this.cupos_disp = cupos_disp;
     }
-    
-    
-    
+        
     
     void registroColegio(){
           
