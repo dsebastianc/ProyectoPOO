@@ -25,7 +25,7 @@ public class ProyectoPOO {
         Cupo cupo = new Cupo();*/
         
         
-        String[]opc = {"Registro estudiantes","Mostrar Estudiantes","Asignacion de cupos","Estado del cupo","Salir"};
+        String[]opc = {"Registro estudiantes","Registro de Colegios","Asignar cupo","Informes","Salir"};
         
          do{
             
@@ -54,27 +54,46 @@ public class ProyectoPOO {
                 acudiente.registroAcudiente();                
                 break;
             case 1:
-                Estudiante estudiant = new Estudiante();
-                Acudiente acudient = new Acudiente();
-                acudient.mostrarAcudiente();
-                estudiant.mostrarEstudiante();
-                break;
-                
-            case 2:
                 Colegios colegio = new Colegios();
                 colegio.registroColegio();
                 break;
+                
+            case 2:
+                
+                break;
             case 3:
+                int op= Integer.parseInt(JOptionPane.showInputDialog(null,"1. Listado de estudiantes Inscritos\n2.Listado Acudientes"
+                        + "\n3.Listado Colegios\n4.Listado de localidades\n5.Estudiantes sin cupo asignado\n6.Valor promedio ingresos"
+                        + "\n7.Cantidad de cupos localidad\n8.Buscar estudiante por id\n" ));
+                Estudiante e = new Estudiante();
+                Acudiente a = new Acudiente();
+                Colegios c = new Colegios();
                 Localidad l = new Localidad();
-                int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el codifgo de la localidad"));
-                l.mostrarCupoLocalidad(id);
+                if(op==1){
+                    e.mostrarEstudiante();
+                }else if(op==2){
+                    a.mostrarAcudiente();
+                }else if(op==3){
+                    c.mostrarColegios();
+                }else if(op==4){
+                    l.mostrarLocalidad();
+                }else if(op==5){
+                    e.estudiantesSinCupo();
+                }else if(op==6){
+                    a.promedioIngreso();
+                }else if(op==7){
+                    int codigo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de la localidad"));
+                    l.mostrarCupoLocalidad(codigo);
+                }else if(op==8){
+                    
+                }
                 break;
             default: JOptionPane.showMessageDialog(null,"Gracias por utilizar el programa");          
                      break;
         }
         
        
-        }while(opcion <3);
+        }while(opcion <4);
                 
  
  
