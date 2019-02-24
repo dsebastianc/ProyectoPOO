@@ -18,14 +18,20 @@ import javax.swing.JOptionPane;
  *
  * @author estudiantes
  */
-public class Estudiante {
+public class Estudiante extends Persona {
     //: Identificación, nombre, dirección, edad
-    int identificacion;
-    String nombre;
     String direccion;
     int edad;
     int curso;
-    int localidad;
+    Localidad localidad;
+
+    public Estudiante(int identificacion, String apellido, String nombre, String direccion, int edad, int curso, Localidad localidad) {
+        super(identificacion, apellido, nombre);
+        this.direccion = direccion;
+        this.edad = edad;
+        this.curso = edad;
+        this.localidad = localidad;
+    }
     
     
     void registroEstudiante(){  

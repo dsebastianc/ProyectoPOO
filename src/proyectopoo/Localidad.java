@@ -11,4 +11,14 @@ package proyectopoo;
  */
 public class Localidad {
     
+    int codigo;
+    String nombre;
+
+    public Localidad(int codigo, String nombre) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+    }
+    
+    
+    
 }

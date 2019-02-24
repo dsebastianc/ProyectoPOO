@@ -15,15 +15,22 @@ import javax.swing.JOptionPane;
  *
  * @author estudiantes
  */
-public class Acudiente {
-    int identificacion;
-    String nombre;
+public class Acudiente extends Persona {
+    
     int telefono;
     int ingresos;
     int tipo_acu;
+
+    public Acudiente(int identificacion, String apellido, String nombre, int telefono, int ingresos, int tipo_acu) {
+        super(identificacion, apellido, nombre);
+        this.telefono = telefono;
+        this.ingresos = ingresos;
+        this.tipo_acu = tipo_acu;
+        
+    }
   
     void registroAcudiente(){  
-         FileOutputStream file = null;
+        FileOutputStream file = null;
         DataOutputStream data = null;
         int n;
         

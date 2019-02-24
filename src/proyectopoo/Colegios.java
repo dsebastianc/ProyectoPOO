@@ -21,6 +21,15 @@ public class Colegios {
     String nombre;
     int localidad;
     int cupos_disp;
+
+    public Colegios(int identificacion, String nombre, int localidad, int cupos_disp) {
+        this.identificacion = identificacion;
+        this.nombre = nombre;
+        this.localidad = localidad;
+        this.cupos_disp = cupos_disp;
+    }
+    
+    
     
     
     void registroColegio(){
