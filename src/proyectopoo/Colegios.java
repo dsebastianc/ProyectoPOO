@@ -5,7 +5,10 @@
  */
 package proyectopoo;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,14 +24,7 @@ public class Colegios {
     String nombre;
     int localidad;
     int cupos_disp;
-
-    public Colegios(int identificacion, String nombre, int localidad, int cupos_disp) {
-        this.identificacion = identificacion;
-        this.nombre = nombre;
-        this.localidad = localidad;
-        this.cupos_disp = cupos_disp;
-    }
-        
+       
     
     void registroColegio(){
           
@@ -75,5 +71,50 @@ public class Colegios {
         }
     }
     
+    void mostrarColegios(){
+        
+         
+         
+         FileInputStream fil = null;
+        DataInputStream dat = null;
+        int n;
+        
+        try{
+            fil = new FileInputStream("registrocolegios.dat");
+            dat = new DataInputStream(fil);
+            
+            while(true){
+                identificacion = dat.readInt();
+                nombre = dat.readUTF();
+                localidad = dat.readInt();
+                cupos_disp = dat.readInt();
+                
+                JOptionPane.showMessageDialog(null,"Identificación colegio: "+identificacion+"\nNombre del colegio: "+nombre
+                        +"\nLocalidad del colegio: "+localidad+"\nCupos disponibles: "+cupos_disp);
+                      //  }
+            }
+        }
+          catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(EOFException e){
+            System.out.println("Fin del Archivo colegios");
+        }catch(IOException e){   
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(dat != null){
+                    dat.close();
+                }
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 }
     

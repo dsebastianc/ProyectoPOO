@@ -5,6 +5,13 @@
  */
 package proyectopoo;
 
+import java.io.DataInputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author estudiantes
@@ -19,6 +26,8 @@ public class Localidad {
         this.nombre = nombre;
     }
     
-    
+    void mostrarLocalidad(){
+        
+    }
     
 }

@@ -25,7 +25,7 @@ public class ProyectoPOO {
         Cupo cupo = new Cupo();*/
         
         
-        String[]opc = {"Registro estudiantes","Registro Colegios","Asignacion de cupos","Estado del cupo","Salir"};
+        String[]opc = {"Registro estudiantes","Mostrar Estudiantes","Asignacion de cupos","Estado del cupo","Salir"};
         
          do{
             
@@ -54,13 +54,15 @@ public class ProyectoPOO {
                 acudiente.registroAcudiente();                
                 break;
             case 1:
-                break;
-            case 2:
                 Estudiante estudiant = new Estudiante();
-                
                 Acudiente acudient = new Acudiente();
                 acudient.mostrarAcudiente();
                 estudiant.mostrarEstudiante();
+                break;
+                
+            case 2:
+                Colegios colegio = new Colegios();
+                colegio.registroColegio();
                 break;
                 
             default: JOptionPane.showMessageDialog(null,"Gracias por utilizar el programa");          

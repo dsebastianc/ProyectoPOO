@@ -24,6 +24,7 @@ public class Estudiante extends Persona {
     int edad;
     int curso;
     int localidad;
+    boolean asignado;
 
     public Estudiante(){
         
@@ -35,6 +36,7 @@ public class Estudiante extends Persona {
         this.edad = edad;
         this.curso = edad;
         this.localidad = localidad;
+        this.asignado = false;
     }
     
     
@@ -51,6 +53,7 @@ public class Estudiante extends Persona {
             data.writeInt(localidad);
             data.writeInt(edad);
             data.writeInt(curso);
+            data.writeBoolean(asignado);
         }
         catch(FileNotFoundException e){
             System.out.println(e.getMessage());
@@ -91,7 +94,7 @@ public class Estudiante extends Persona {
                 edad = dat.readInt();
                 curso = dat.readInt();
                 localidad = dat.readInt();
-            
+                
                 JOptionPane.showMessageDialog(null,"Identificación estudiante: "+identificacion+"\nNombre del estudiante: "+nombre+" "+apellido
                         +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso);
                       //  }
@@ -120,6 +123,72 @@ public class Estudiante extends Persona {
         }
     }
         
+    public Estudiante buscarEstudiante(Integer id){
+        FileInputStream fil = null;
+        DataInputStream dat = null;
+        int n = 0;
+        Estudiante es = null;
+        try{
+            fil = new FileInputStream("registroestudiantes.dat");
+            dat = new DataInputStream(fil);
+            
+            while(true){
+                identificacion = dat.readInt();
+                apellido = dat.readUTF();
+                nombre = dat.readUTF();
+                direccion = dat.readUTF();
+                edad = dat.readInt();
+                curso = dat.readInt();
+                localidad = dat.readInt();
+                asignado = dat.readBoolean();
+              
+                Integer ident = identificacion;
+                if(ident.compareTo(id)==0 && asignado==false){
+                    n = 1;
+                    JOptionPane.showMessageDialog(null,"Existe el estudiante"+nombre+" y se puede asignar cupo");
+                    es = this;
+                    break;
+                }if (asignado){
+                    n=2;
+                    JOptionPane.showMessageDialog(null,"Existe el estudiante"+nombre+" y ya tiene cupo asignado");
+                    break;
+                }
+            //if(estado == true){ //estado == true --> ME muestra los videos disponibles
+                //JOptionPane.showMessageDialog(null,"Codigo del afiliado: "+codigo+"\n Nombre del afiliado: "+nombre+"\n Direccion del afiliado: "+direccion+"\n Edad del afiliado: "+edad);
+                      //  }
+                
+                
+            }
+            
+        }
+          catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(EOFException e){
+            System.out.println("Fin del Archivo");
+        }catch(IOException e){   
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(dat != null){
+                    dat.close();
+                }
+                if(n==0){
+                    JOptionPane.showMessageDialog(null,"No existe el estudiante");
+                }
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+            
+        }
+        return es;
+    }  
+      
     }
     
 
