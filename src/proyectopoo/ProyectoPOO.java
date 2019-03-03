@@ -80,7 +80,8 @@ public class ProyectoPOO {
                 }else if(op==2){
                     a.mostrarAcudiente();
                 }else if(op==3){
-                    c.mostrarColegios();
+                    Colegios c1 = new Colegios();
+                    c1.mostrarColegios();
                 }else if(op==4){
                     l.mostrarLocalidad();
                 }else if(op==5){
@@ -93,6 +94,7 @@ public class ProyectoPOO {
                 }else if(op==8){
                     ArchivoColegios ac = new ArchivoColegios();
                     ac.Leerarchivo_Txt();
+                    ac.leerArchivo_Bin();
                 }
                 break;
             default: JOptionPane.showMessageDialog(null,"Gracias por utilizar el programa");          

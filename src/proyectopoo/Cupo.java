@@ -494,6 +494,8 @@ public class Cupo {
                 data.writeUTF(col.identificacion);
                 data.writeUTF(col.nombre);
                 data.writeInt(col.localidad);
+                data.writeUTF(col.direccion);
+                data.writeUTF(col.telefono);
                 data.writeInt(col.cupos_disp);
             }
             

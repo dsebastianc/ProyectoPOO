@@ -90,13 +90,15 @@ public class Colegios {
         int n;
         
         try{
-            fil = new FileInputStream("registrocolegios.dat");
+            fil = new FileInputStream("colegios.dat");
             dat = new DataInputStream(fil);
             
             while(true){
-                identificacion = dat.readUTF();
+                identificacion = dat.readUTF();                
                 nombre = dat.readUTF();
                 localidad = dat.readInt();
+                direccion = dat.readUTF();
+                telefono = dat.readUTF();
                 cupos_disp = dat.readInt();
                 
                 JOptionPane.showMessageDialog(null,"Identificación colegio: "+identificacion+"\nNombre del colegio: "+nombre
@@ -193,17 +195,20 @@ public class Colegios {
         int n=0;
 
         try {
-            fil = new FileInputStream("registrocolegios.dat");
+            fil = new FileInputStream("colegios.dat");
             dat = new DataInputStream(fil);
 
             while (true) {
-                int identificacion = dat.readInt();
+                String identificacion = dat.readUTF();
                 String nombre = dat.readUTF();
                 int localidad = dat.readInt();
+                String direccion = dat.readUTF();
+                String tle = dat.readUTF();
                 int cupos_disp = dat.readInt();
                 Integer id = localidad;
                 
                 if(id.compareTo(numero)==0){
+                    System.out.println("Cuposssssss");
                     n=n+cupos_disp;
                 }
                 
