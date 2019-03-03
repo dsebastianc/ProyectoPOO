@@ -30,13 +30,13 @@ public class Estudiante extends Persona {
         
     }
     
-    Estudiante(int identificacion, String apellido, String nombre, String direccion, int edad, int curso, int localidad) {
+    Estudiante(int identificacion, String apellido, String nombre, String direccion, int edad, int curso, int localidad, boolean asignado) {
         super(identificacion, apellido, nombre);
         this.direccion = direccion;
         this.edad = edad;
-        this.curso = edad;
+        this.curso = curso;
         this.localidad = localidad;
-        this.asignado = false;
+        this.asignado = asignado;
     }
     
     
@@ -91,13 +91,13 @@ public class Estudiante extends Persona {
                 apellido = dat.readUTF();
                 nombre = dat.readUTF();
                 direccion = dat.readUTF();
+                localidad = dat.readInt();
                 edad = dat.readInt();
                 curso = dat.readInt();
-                localidad = dat.readInt();
                 asignado = dat.readBoolean();
                 
                 JOptionPane.showMessageDialog(null,"Identificación estudiante: "+identificacion+"\nNombre del estudiante: "+nombre+" "+apellido
-                        +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso);
+                        +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso+"\nLocalidad"+localidad);
                       //  }
             }
         }
@@ -149,7 +149,7 @@ public class Estudiante extends Persona {
                     JOptionPane.showMessageDialog(null,"Existe el estudiante"+nombre+" y se puede asignar cupo");
                     es = this;
                     break;
-                }if (asignado){
+                }if (ident.compareTo(id)==0 && asignado){
                     n=2;
                     JOptionPane.showMessageDialog(null,"Existe el estudiante"+nombre+" y ya tiene cupo asignado");
                     break;
@@ -200,9 +200,9 @@ public class Estudiante extends Persona {
                 apellido = dat.readUTF();
                 nombre = dat.readUTF();
                 direccion = dat.readUTF();
+                localidad = dat.readInt();
                 edad = dat.readInt();
                 curso = dat.readInt();
-                localidad = dat.readInt();
                 asignado = dat.readBoolean();
               
                 Integer ident = identificacion;
@@ -257,9 +257,9 @@ public class Estudiante extends Persona {
                 apellido = dat.readUTF();
                 nombre = dat.readUTF();
                 direccion = dat.readUTF();
+                localidad = dat.readInt();
                 edad = dat.readInt();
                 curso = dat.readInt();
-                localidad = dat.readInt();
                 asignado = dat.readBoolean();
               
                 Integer ident = identificacion;

@@ -100,6 +100,10 @@ public class Cupo {
                 data.writeUTF(fecha_cupo+"");
                 data.writeInt(estudiante.identificacion);
                 data.writeUTF(matriz[opcion-1].identificacion);
+                Estudiante[] e = crearMatrizCupoEstudiante(estudiante.identificacion);
+                crearNuevoArchivoEstudiante(e);
+                Colegios[] cole = crearMatrizCupoColegio(matriz[opcion-1].identificacion);
+                crearNuevoArchivoColegio(cole);
             } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage());
             } catch (IOException e) {
@@ -122,6 +126,7 @@ public class Cupo {
     }
     
     Colegios[] buscarColegio(Integer id){
+        File f = null;
         FileInputStream fil = null;
         DataInputStream dat = null;
         int n = 0;
@@ -129,9 +134,9 @@ public class Cupo {
         int colegios = colegioPorLocalidad(id);
         Colegios[] es = new Colegios[colegios];
         try{
-            fil = new FileInputStream("colegios.dat");
+            f = new File("colegios.dat");
+            fil = new FileInputStream(f);
             dat = new DataInputStream(fil);
-            
             while(true){
                 
                 String identificacion = dat.readUTF();                
@@ -235,9 +240,283 @@ public class Cupo {
             catch (IOException e){
                 System.out.println(e.getMessage());
             }
-            
         }
         return colegio;
+    }
+
+    Estudiante[] crearMatrizCupoEstudiante(Integer identificacion) {
+        File f = null;
+        FileInputStream fil = null;
+        DataInputStream dat = null;
+        int numEstu = cantidadEstudiantes();
+        Estudiante[] es = new Estudiante[numEstu];
+        int i=0;
+        try{
+            f = new File("registroestudiantes.dat");
+            fil = new FileInputStream(f);
+            dat = new DataInputStream(fil);
+            while(true){
+                int ident = dat.readInt();
+                String apellido = dat.readUTF();
+                String nombre = dat.readUTF();
+                String direccion = dat.readUTF();
+                int localidad = dat.readInt();
+                int edad = dat.readInt();
+                int curso = dat.readInt();
+                boolean asignado = dat.readBoolean();
+                Integer ide = ident;
+                if(ide.compareTo(identificacion)==0){
+                    asignado = true;
+                }
+                Estudiante e = new Estudiante(ident, apellido, nombre, direccion, edad, curso, localidad, asignado);
+                es[i]=e;
+                i++;
+            }
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(EOFException e){
+            System.out.println("Fin del Archivo");
+        }catch(IOException e){   
+            System.out.println(e.getMessage());
+        }
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(dat != null){
+                    dat.close();
+                }
+                if(f!=null){
+                    f.delete();
+                }
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return es;
+    }
+
+    int cantidadEstudiantes(){
+        FileInputStream fil = null;
+        DataInputStream dat = null;
+        int n = 0;
+        try{
+            fil = new FileInputStream("registroestudiantes.dat");
+            dat = new DataInputStream(fil);
+            while(true){
+                int identificacion = dat.readInt();
+                String apellido = dat.readUTF();
+                String nombre = dat.readUTF();
+                String direccion = dat.readUTF();
+                int localidad = dat.readInt();
+                int edad = dat.readInt();
+                int curso = dat.readInt();
+                boolean asignado = dat.readBoolean();
+                n = n+1;
+            }
+            
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(EOFException e){
+            System.out.println("Fin del Archivo");
+        }catch(IOException e){   
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(dat != null){
+                    dat.close();
+                }
+                if(n==0){
+                    JOptionPane.showMessageDialog(null,"No hay colegios disponibles");
+                }
+                
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return n;
+    }
+    
+    Colegios[] crearMatrizCupoColegio(String identificacion) {
+        File f = null;
+        FileInputStream fil = null;
+        DataInputStream dat = null;
+        int numCol = cantidadColegios();
+        Colegios[] cole = new Colegios[numCol];
+        int i=0;
+        try{
+            f = new File("colegios.dat");
+            fil = new FileInputStream(f);
+            dat = new DataInputStream(fil);
+            while(true){
+                String ident = dat.readUTF();                
+                String nombre = dat.readUTF();
+                int localidad = dat.readInt();
+                String direccion = dat.readUTF();
+                String telefono = dat.readUTF();
+                int cupos_disp = dat.readInt();
+                if(ident.equals(identificacion)){
+                    System.out.println("cupo "+cupos_disp);
+                    cupos_disp--;
+                    System.out.println("cupo "+cupos_disp);
+                }
+                Colegios c = new Colegios(ident, nombre, direccion, telefono, localidad, cupos_disp);
+                cole[i]=c;
+                i++;
+            }
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(EOFException e){
+            System.out.println("Fin del Archivo");
+        }catch(IOException e){   
+            System.out.println(e.getMessage());
+        }
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(dat != null){
+                    dat.close();
+                }
+                if(f!=null){
+                    f.delete();
+                }
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return cole;
+    }
+
+    void crearNuevoArchivoEstudiante(Estudiante[] es) {
+        FileOutputStream fil = null;
+        DataOutputStream data = null;
+        try{
+            fil = new FileOutputStream("registroestudiantes.dat");
+            data = new DataOutputStream(fil);
+            for (int i = 0; i < es.length; i++) {
+                Estudiante est = es[i];
+                data.writeInt(est.identificacion);
+                data.writeUTF(est.apellido);
+                data.writeUTF(est.nombre);
+                data.writeUTF(est.direccion);
+                data.writeInt(est.localidad);
+                data.writeInt(est.edad);
+                data.writeInt(est.curso);
+                data.writeBoolean(est.asignado);
+            }
+            
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }catch(Exception e1){   //Los dos primeros puedene ser ignorados
+            System.out.println("Error Ingreso de datos "+e1.getMessage());
+        }
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(data != null){
+                    data.close();
+                }
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    int cantidadColegios() {
+        FileInputStream fil = null;
+        DataInputStream dat = null;
+        int n = 0;
+        try{
+            fil = new FileInputStream("colegios.dat");
+            dat = new DataInputStream(fil);
+            while(true){
+                String identificacion = dat.readUTF();                
+                String nombre = dat.readUTF();
+                int localidad = dat.readInt();
+                String direccion = dat.readUTF();
+                String telefono = dat.readUTF();
+                int cupos_disp = dat.readInt();
+                n = n+1;
+            }
+            
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(EOFException e){
+            System.out.println("Fin del Archivo");
+        }catch(IOException e){   
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(dat != null){
+                    dat.close();
+                }
+                if(n==0){
+                    JOptionPane.showMessageDialog(null,"No hay colegios disponibles");
+                }
+                
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return n;
+    }
+
+    void crearNuevoArchivoColegio(Colegios[] cole) {
+        FileOutputStream fil = null;
+        DataOutputStream data = null;
+        try{
+            fil = new FileOutputStream("colegios.dat");
+            data = new DataOutputStream(fil);
+            for (int i = 0; i < cole.length; i++) {
+                Colegios col = cole[i];
+                data.writeUTF(col.identificacion);
+                data.writeUTF(col.nombre);
+                data.writeInt(col.localidad);
+                data.writeInt(col.cupos_disp);
+            }
+            
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }catch(Exception e1){   //Los dos primeros puedene ser ignorados
+            System.out.println("Error Ingreso de datos "+e1.getMessage());
+        }
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(data != null){
+                    data.close();
+                }
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
     
