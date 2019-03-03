@@ -26,11 +26,11 @@ public class Estudiante extends Persona {
     int localidad;
     boolean asignado;
 
-    public Estudiante(){
+     Estudiante(){
         
     }
     
-    public Estudiante(int identificacion, String apellido, String nombre, String direccion, int edad, int curso, int localidad) {
+    Estudiante(int identificacion, String apellido, String nombre, String direccion, int edad, int curso, int localidad) {
         super(identificacion, apellido, nombre);
         this.direccion = direccion;
         this.edad = edad;
@@ -40,7 +40,7 @@ public class Estudiante extends Persona {
     }
     
     
-    public void registroEstudiante(){  
+     void registroEstudiante(){  
          FileOutputStream file = null;
         DataOutputStream data = null;
         try{
@@ -94,7 +94,7 @@ public class Estudiante extends Persona {
                 edad = dat.readInt();
                 curso = dat.readInt();
                 localidad = dat.readInt();
-                
+                asignado = dat.readBoolean();
                 
                 JOptionPane.showMessageDialog(null,"Identificación estudiante: "+identificacion+"\nNombre del estudiante: "+nombre+" "+apellido
                         +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso);
@@ -124,7 +124,7 @@ public class Estudiante extends Persona {
         }
     }
         
-    public Estudiante buscarEstudiante(Integer id){
+    Estudiante buscarEstudiante(Integer id){
         FileInputStream fil = null;
         DataInputStream dat = null;
         int n = 0;
@@ -138,9 +138,9 @@ public class Estudiante extends Persona {
                 apellido = dat.readUTF();
                 nombre = dat.readUTF();
                 direccion = dat.readUTF();
+                localidad = dat.readInt();
                 edad = dat.readInt();
                 curso = dat.readInt();
-                localidad = dat.readInt();
                 asignado = dat.readBoolean();
               
                 Integer ident = identificacion;

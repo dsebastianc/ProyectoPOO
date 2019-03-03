@@ -20,11 +20,23 @@ import javax.swing.JOptionPane;
  */
 public class Colegios {
    
-    int identificacion;
+    String identificacion;
     String nombre;
+    String direccion;
+    String telefono;
     int localidad;
     int cupos_disp;
+
+    public Colegios(String identificacion, String nombre, String direccion, String telefono, int localidad, int cupos_disp) {
+        this.identificacion = identificacion;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.localidad = localidad;
+        this.cupos_disp = cupos_disp;
+    }
        
+    public Colegios(){}
     
     void registroColegio(){
           
@@ -36,13 +48,13 @@ public class Colegios {
             file = new FileOutputStream("registrocolegios.dat",true);
             data = new DataOutputStream(file);
            
-            identificacion = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese la identificacion del colegio:"));
+            identificacion = JOptionPane.showInputDialog(null,"Ingrese la identificacion del colegio:");
             nombre = JOptionPane.showInputDialog(null,"Ingrese el nombre del colegio:");
             localidad = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el codigo de la localidad:"));
             cupos_disp = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese los cupos disponibles: "));
             
             
-            data.writeInt(identificacion);
+            data.writeUTF(identificacion);
             data.writeUTF(nombre);
             data.writeInt(localidad);
             data.writeInt(cupos_disp);
@@ -73,7 +85,7 @@ public class Colegios {
     
     void mostrarColegios(){
         
-         FileInputStream fil = null;
+        FileInputStream fil = null;
         DataInputStream dat = null;
         int n;
         
@@ -82,7 +94,7 @@ public class Colegios {
             dat = new DataInputStream(fil);
             
             while(true){
-                identificacion = dat.readInt();
+                identificacion = dat.readUTF();
                 nombre = dat.readUTF();
                 localidad = dat.readInt();
                 cupos_disp = dat.readInt();
@@ -113,6 +125,66 @@ public class Colegios {
                 System.out.println(e.getMessage());
             }
         }
+    }
+    
+    Colegios[] buscarColegio(Integer id){
+        FileInputStream fil = null;
+        DataInputStream dat = null;
+        int n = 0;
+        int i=0;
+        Colegios[] es = null;
+        try{
+            fil = new FileInputStream("colegios.dat");
+            dat = new DataInputStream(fil);
+            
+            while(true){
+                identificacion = dat.readUTF();                
+                nombre = dat.readUTF();
+                localidad = dat.readInt();
+                direccion = dat.readUTF();
+                telefono = dat.readUTF();
+                cupos_disp = dat.readInt();
+                
+                Integer loc = localidad;
+                
+                if(loc.compareTo(id)==0 && cupos_disp >0){
+                    n = 1;
+                    //JOptionPane.showMessageDialog(null,"Existe el estudiante"+nombre+" y se puede asignar cupo");
+                    System.out.println("Soy colegio");
+                    es[i] = this;
+                    i++;
+                    break;
+                }
+            }
+            
+        }
+          catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }catch(EOFException e){
+            System.out.println("Fin del Archivo");
+        }catch(IOException e){   
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            try{
+                if(fil!=null){
+                    fil.close();
+                }
+                if(dat != null){
+                    dat.close();
+                }
+                if(n==0){
+                    JOptionPane.showMessageDialog(null,"No hay colegios disponibles");
+                }
+                
+            }
+            catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+            
+        }
+        return es;
     }
     
     int mostrarCuposLocalidad(Integer numero) {

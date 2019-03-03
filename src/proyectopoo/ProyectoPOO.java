@@ -46,7 +46,7 @@ public class ProyectoPOO {
                 estudiante.registroEstudiante();
                 identificacion = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese la identificacion del acudiente:"));
                 nombre = JOptionPane.showInputDialog(null,"Ingrese el nombre del acudiente:");
-                apellido = JOptionPane.showInputDialog(null,"Ingrese el apellido del estudiante:");
+                apellido = JOptionPane.showInputDialog(null,"Ingrese el apellido del acudiente:");
                 int telefono = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el telefono del acudiente:"));
                 int ingresos = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese los ingresos del acudiente:"));
                 int tipo_acu = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese el tipo de acudiente(padre o madre (1) ,otro familiar (2)): "));
@@ -59,7 +59,9 @@ public class ProyectoPOO {
                 break;
                 
             case 2:
-                
+                Cupo cup = new Cupo();
+                //cup.mostrarColegiosDisponiblesAC();
+                cup.leerCupo();
                 break;
             case 3:
                 int op= Integer.parseInt(JOptionPane.showInputDialog(null,"1. Listado de estudiantes Inscritos\n2.Listado Acudientes"
@@ -98,6 +100,7 @@ public class ProyectoPOO {
  
  
         
+         /*queda pendiente asignar cupo, y mostrar estudiante colegio y fecha de cupo*/
  }
 }
 
