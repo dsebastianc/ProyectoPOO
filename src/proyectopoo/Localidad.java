@@ -119,7 +119,7 @@ public class Localidad {
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (EOFException e) {
-            System.out.println("Fin del Archivo colegios");
+            System.out.println("Fin del Archivo");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } finally {

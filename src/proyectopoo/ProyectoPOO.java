@@ -64,7 +64,7 @@ public class ProyectoPOO {
                 
             case 2:
                 Cupo cup = new Cupo();
-                cup.mostrarColegiosDisponiblesAC();
+                cup.asignarCupo();
                 
                 break;
             case 3:
@@ -73,7 +73,6 @@ public class ProyectoPOO {
                         + "\n7.Cantidad de cupos localidad\n8.Buscar estudiante por id\n" ));
                 Estudiante e = new Estudiante();
                 Acudiente a = new Acudiente();
-                Colegios c = new Colegios();
                 Localidad l = new Localidad();
                 if(op==1){
                     e.mostrarEstudiante();
@@ -92,9 +91,8 @@ public class ProyectoPOO {
                     int codigo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de la localidad"));
                     l.mostrarCupoLocalidad(codigo);
                 }else if(op==8){
-                    ArchivoColegios ac = new ArchivoColegios();
-                    ac.Leerarchivo_Txt();
-                    ac.leerArchivo_Bin();
+                    int codigo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el id del estudiante"));
+                    e.buscarEstudiantePorID(codigo);
                 }
                 break;
             default: JOptionPane.showMessageDialog(null,"Gracias por utilizar el programa");          

@@ -97,7 +97,7 @@ public class Estudiante extends Persona {
                 asignado = dat.readBoolean();
                 
                 JOptionPane.showMessageDialog(null,"Identificación estudiante: "+identificacion+"\nNombre del estudiante: "+nombre+" "+apellido
-                        +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso+"\nLocalidad"+localidad);
+                        +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso+"\nLocalidad: "+localidad+"\nCupo: "+asignado);
                       //  }
             }
         }
@@ -186,7 +186,7 @@ public class Estudiante extends Persona {
         return es;
     }  
      
-    public void buscarEstudianteConCupo(Integer id){
+    public void buscarEstudiantePorID(Integer id){
         FileInputStream fil = null;
         DataInputStream dat = null;
         int n = 0;
@@ -206,11 +206,10 @@ public class Estudiante extends Persona {
                 asignado = dat.readBoolean();
               
                 Integer ident = identificacion;
-                if(ident.compareTo(id)==0 && asignado==true){
+                if(ident.compareTo(id)==0){
                     n = 1;
-                    JOptionPane.showMessageDialog(null,"Existe el estudiante"+nombre+" y se puede asignar cupo");
-                    
-                    // hacer como asignar cupo
+                    JOptionPane.showMessageDialog(null,"Identificación estudiante: "+identificacion+"\nNombre del estudiante: "+nombre+" "+apellido
+                        +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso+"\nLocalidad: "+localidad+"\nCupo: "+asignado);                  
                     
                     break;
                 }
@@ -290,7 +289,7 @@ public class Estudiante extends Persona {
                     dat.close();
                 }
                 if(n==0){
-                    JOptionPane.showMessageDialog(null,"No existe el estudiante");
+                    JOptionPane.showMessageDialog(null,"No hay estudiantes sin cupo");
                 }
             }
             catch (IOException e){
