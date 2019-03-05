@@ -118,6 +118,7 @@ public class Cupo {
                     if (data != null) {
                         data.close();
                     }
+                    JOptionPane.showMessageDialog(null,"cupo asignado con exito");
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                 }
@@ -153,7 +154,7 @@ public class Cupo {
                 
                 if(loc.compareTo(id)==0 && cupos_disp >0){
                     n = 1;
-                    //JOptionPane.showMessageDialog(null,"Existe el estudiante"+nombre+" y se puede asignar cupo");
+                    
                     System.out.println("Soy colegio");
                     Colegios c = new Colegios(identificacion, nombre, direccion, telefono, localidad, cupos_disp);
                     es[i] = c;
@@ -398,7 +399,7 @@ public class Cupo {
                 
                 if(loc.compareTo(id)==0 && cupos_disp >0){
                     n = 1;
-                    //JOptionPane.showMessageDialog(null,"Existe el estudiante"+nombre+" y se puede asignar cupo");
+                   
                     System.out.println("Soy colegio");
                     colegio = colegio+1;
                 }

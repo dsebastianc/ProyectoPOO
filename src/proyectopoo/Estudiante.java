@@ -146,7 +146,7 @@ public class Estudiante extends Persona {
                 Integer ident = identificacion;
                 if(ident.compareTo(id)==0 && asignado==false){
                     n = 1;
-                    JOptionPane.showMessageDialog(null,"Existe el estudiante"+nombre+" y se puede asignar cupo");
+                    JOptionPane.showMessageDialog(null,"Existe el estudiante: "+nombre+" y se puede asignar cupo");
                     es = this;
                     break;
                 }if (ident.compareTo(id)==0 && asignado){

@@ -18,12 +18,6 @@ public class ProyectoPOO {
         
         int opcion;
         
-        /*Estudiante estudiante = new Estudiante();
-        Acudiente acudiente = new Acudiente();
-        Colegios colegios = new Colegios();
-        Localidad localidad = new Localidad();
-        Cupo cupo = new Cupo();*/
-        
         
         String[]opc = {"Registro estudiantes","Registro de Colegios","Asignar cupo","Informes","Salir"};
         
@@ -95,7 +89,7 @@ public class ProyectoPOO {
                     e.buscarEstudiantePorID(codigo);
                 }
                 break;
-            default: JOptionPane.showMessageDialog(null,"Gracias por utilizar el programa");          
+            default: JOptionPane.showMessageDialog(null,"Gracias por usar el programa");          
                      break;
         }
         
@@ -105,7 +99,7 @@ public class ProyectoPOO {
  
  
         
-         /*queda pendiente asignar cupo, y mostrar estudiante colegio y fecha de cupo*/
+         
  }
 }
 
