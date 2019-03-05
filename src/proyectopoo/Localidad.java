@@ -25,40 +25,39 @@ public class Localidad {
 
     /*void registroColegio() {
 
-        FileOutputStream file = null;
-        DataOutputStream data = null;
-        int n;
+     FileOutputStream file = null;
+     DataOutputStream data = null;
+     int n;
 
-        try {
-            file = new FileOutputStream("localidades.dat", true);
-            data = new DataOutputStream(file);
+     try {
+     file = new FileOutputStream("localidades.dat", true);
+     data = new DataOutputStream(file);
 
-            codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el codigo de la localidad:"));
-            nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre de la localidad:");
+     codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el codigo de la localidad:"));
+     nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre de la localidad:");
 
-            data.writeInt(codigo);
-            data.writeUTF(nombre);
+     data.writeInt(codigo);
+     data.writeUTF(nombre);
 
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } catch (Exception e1) {   //Los dos primeros puedene ser ignorados
-            System.out.println("Error Ingreso de datos " + e1.getMessage());
-        } finally {
-            try {
-                if (file != null) {
-                    file.close();
-                }
-                if (data != null) {
-                    data.close();
-                }
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    } */
-
+     } catch (FileNotFoundException e) {
+     System.out.println(e.getMessage());
+     } catch (IOException e) {
+     System.out.println(e.getMessage());
+     } catch (Exception e1) {   //Los dos primeros puedene ser ignorados
+     System.out.println("Error Ingreso de datos " + e1.getMessage());
+     } finally {
+     try {
+     if (file != null) {
+     file.close();
+     }
+     if (data != null) {
+     data.close();
+     }
+     } catch (IOException e) {
+     System.out.println(e.getMessage());
+     }
+     }
+     } */
     void mostrarLocalidad() {
         FileInputStream fil = null;
         DataInputStream dat = null;
@@ -78,7 +77,7 @@ public class Localidad {
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (EOFException e) {
-            System.out.println("Fin del Archivo colegios");
+            System.out.println("Fin del Archivo localidad");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -95,7 +94,7 @@ public class Localidad {
         }
     }
 
-    void mostrarCupoLocalidad(Integer id){
+    void mostrarCupoLocalidad(Integer id) {
         Colegios c = new Colegios();
         int cupos = c.mostrarCuposLocalidad(id);
         FileInputStream fil = null;
@@ -108,11 +107,12 @@ public class Localidad {
             while (true) {
                 codigo = dat.readInt();
                 nombre = dat.readUTF();
-                
+
                 Integer cod = codigo;
-                
-                if(cod.compareTo(id)==0){
+
+                if (cod.compareTo(id) == 0) {
                     JOptionPane.showMessageDialog(null, "Nombre localidad: " + nombre + "\nCupos: " + cupos);
+                    break;
                 }
                 //  }
             }

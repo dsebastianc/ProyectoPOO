@@ -19,17 +19,19 @@ import javax.swing.JOptionPane;
  * @author estudiantes
  */
 public class Estudiante extends Persona {
+
     //: Identificación, nombre, dirección, edad
+
     String direccion;
     int edad;
     int curso;
     int localidad;
     boolean asignado;
 
-     Estudiante(){
-        
+    Estudiante() {
+
     }
-    
+
     Estudiante(int identificacion, String apellido, String nombre, String direccion, int edad, int curso, int localidad, boolean asignado) {
         super(identificacion, apellido, nombre);
         this.direccion = direccion;
@@ -38,13 +40,12 @@ public class Estudiante extends Persona {
         this.localidad = localidad;
         this.asignado = asignado;
     }
-    
-    
-     void registroEstudiante(){  
-         FileOutputStream file = null;
+
+    void registroEstudiante() {
+        FileOutputStream file = null;
         DataOutputStream data = null;
-        try{
-            file = new FileOutputStream("registroestudiantes.dat",true);
+        try {
+            file = new FileOutputStream("registroestudiantes.dat", true);
             data = new DataOutputStream(file);
             data.writeInt(identificacion);
             data.writeUTF(apellido);
@@ -54,39 +55,36 @@ public class Estudiante extends Persona {
             data.writeInt(edad);
             data.writeInt(curso);
             data.writeBoolean(asignado);
-        }
-        catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }catch(Exception e1){   //Los dos primeros puedene ser ignorados
-            System.out.println("Error Ingreso de datos "+e1.getMessage());
-        }
-        finally{
-            try{
-                if(file!=null){
+        } catch (Exception e1) {   //Los dos primeros puedene ser ignorados
+            System.out.println("Error Ingreso de datos " + e1.getMessage());
+        } finally {
+            try {
+                if (file != null) {
                     file.close();
                 }
-                if(data != null){
+                if (data != null) {
                     data.close();
                 }
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
-    
-      void mostrarEstudiante(){
-         FileInputStream fil = null;
+
+    void mostrarEstudiante() {
+        FileInputStream fil = null;
         DataInputStream dat = null;
         int n;
-        
-        try{
+
+        try {
             fil = new FileInputStream("registroestudiantes.dat");
             dat = new DataInputStream(fil);
-            
-            while(true){
+
+            while (true) {
                 identificacion = dat.readInt();
                 apellido = dat.readUTF();
                 nombre = dat.readUTF();
@@ -95,45 +93,41 @@ public class Estudiante extends Persona {
                 edad = dat.readInt();
                 curso = dat.readInt();
                 asignado = dat.readBoolean();
-                
-                JOptionPane.showMessageDialog(null,"Identificación estudiante: "+identificacion+"\nNombre del estudiante: "+nombre+" "+apellido
-                        +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso+"\nLocalidad: "+localidad+"\nCupo: "+asignado);
-                      //  }
+
+                JOptionPane.showMessageDialog(null, "Identificación estudiante: " + identificacion + "\nNombre del estudiante: " + nombre + " " + apellido
+                        + "\nDireccion del estudiante: " + direccion + "\nEdad del estudiante: " + edad + "\nCurso del estudiante: " + curso + "\nLocalidad: " + localidad + "\nCupo: " + asignado);
+                //  }
             }
-        }
-          catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-        }catch(EOFException e){
+        } catch (EOFException e) {
             System.out.println("Fin del Archivo estudiantes");
-        }catch(IOException e){   
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
-        
-        finally{
-            try{
-                if(fil!=null){
+        } finally {
+            try {
+                if (fil != null) {
                     fil.close();
                 }
-                if(dat != null){
+                if (dat != null) {
                     dat.close();
                 }
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
-        
-    Estudiante buscarEstudiante(Integer id){
+
+    Estudiante buscarEstudiante(Integer id) {
         FileInputStream fil = null;
         DataInputStream dat = null;
         int n = 0;
         Estudiante es = null;
-        try{
+        try {
             fil = new FileInputStream("registroestudiantes.dat");
             dat = new DataInputStream(fil);
-            
-            while(true){
+
+            while (true) {
                 identificacion = dat.readInt();
                 apellido = dat.readUTF();
                 nombre = dat.readUTF();
@@ -142,60 +136,57 @@ public class Estudiante extends Persona {
                 edad = dat.readInt();
                 curso = dat.readInt();
                 asignado = dat.readBoolean();
-              
+
                 Integer ident = identificacion;
-                if(ident.compareTo(id)==0 && asignado==false){
+                if (ident.compareTo(id) == 0 && asignado == false) {
                     n = 1;
-                    JOptionPane.showMessageDialog(null,"Existe el estudiante: "+nombre+" y se puede asignar cupo");
+                    JOptionPane.showMessageDialog(null, "Existe el estudiante: " + nombre + " y se puede asignar cupo");
                     es = this;
                     break;
-                }if (ident.compareTo(id)==0 && asignado){
-                    n=2;
-                    JOptionPane.showMessageDialog(null,"Existe el estudiante"+nombre+" y ya tiene cupo asignado");
+                }
+                if (ident.compareTo(id) == 0 && asignado) {
+                    n = 2;
+                    JOptionPane.showMessageDialog(null, "Existe el estudiante: " + nombre + " y ya tiene cupo asignado");
                     break;
                 }
             }
-            
-        }
-          catch(FileNotFoundException e){
+
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-        }catch(EOFException e){
+        } catch (EOFException e) {
             System.out.println("Fin del Archivo");
-        }catch(IOException e){   
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
-        
-        finally{
-            try{
-                if(fil!=null){
+        } finally {
+            try {
+                if (fil != null) {
                     fil.close();
                 }
-                if(dat != null){
+                if (dat != null) {
                     dat.close();
                 }
-                if(n==0){
-                    JOptionPane.showMessageDialog(null,"No existe el estudiante");
+                if (n == 0) {
+                    JOptionPane.showMessageDialog(null, "No existe el estudiante");
                 }
-                
-            }
-            catch (IOException e){
+
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-            
+
         }
         return es;
-    }  
-     
-    public void buscarEstudiantePorID(Integer id){
+    }
+
+    public void buscarEstudiantePorID(Integer id) {
         FileInputStream fil = null;
         DataInputStream dat = null;
         int n = 0;
         Estudiante es = null;
-        try{
+        try {
             fil = new FileInputStream("registroestudiantes.dat");
             dat = new DataInputStream(fil);
-            
-            while(true){
+
+            while (true) {
                 identificacion = dat.readInt();
                 apellido = dat.readUTF();
                 nombre = dat.readUTF();
@@ -204,54 +195,50 @@ public class Estudiante extends Persona {
                 edad = dat.readInt();
                 curso = dat.readInt();
                 asignado = dat.readBoolean();
-              
+
                 Integer ident = identificacion;
-                if(ident.compareTo(id)==0){
+                if (ident.compareTo(id) == 0) {
                     n = 1;
-                    JOptionPane.showMessageDialog(null,"Identificación estudiante: "+identificacion+"\nNombre del estudiante: "+nombre+" "+apellido
-                        +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso+"\nLocalidad: "+localidad+"\nCupo: "+asignado);                  
-                    
+                    JOptionPane.showMessageDialog(null, "Identificación estudiante: " + identificacion + "\nNombre del estudiante: " + nombre + " " + apellido
+                            + "\nDireccion del estudiante: " + direccion + "\nEdad del estudiante: " + edad + "\nCurso del estudiante: " + curso + "\nLocalidad: " + localidad + "\nCupo: " + asignado);
+
                     break;
                 }
             }
-        }
-          catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-        }catch(EOFException e){
+        } catch (EOFException e) {
             System.out.println("Fin del Archivo");
-        }catch(IOException e){   
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
-        
-        finally{
-            try{
-                if(fil!=null){
+        } finally {
+            try {
+                if (fil != null) {
                     fil.close();
                 }
-                if(dat != null){
+                if (dat != null) {
                     dat.close();
                 }
-                if(n==0){
-                    JOptionPane.showMessageDialog(null,"No existe el estudiante");
+                if (n == 0) {
+                    JOptionPane.showMessageDialog(null, "No existe el estudiante");
                 }
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-            
+
         }
     }
-    
-    void estudiantesSinCupo(){
+
+    void estudiantesSinCupo() {
         FileInputStream fil = null;
         DataInputStream dat = null;
         int n = 0;
         Estudiante es = null;
-        try{
+        try {
             fil = new FileInputStream("registroestudiantes.dat");
             dat = new DataInputStream(fil);
-            
-            while(true){
+
+            while (true) {
                 identificacion = dat.readInt();
                 apellido = dat.readUTF();
                 nombre = dat.readUTF();
@@ -260,45 +247,37 @@ public class Estudiante extends Persona {
                 edad = dat.readInt();
                 curso = dat.readInt();
                 asignado = dat.readBoolean();
-              
+
                 Integer ident = identificacion;
-                if(asignado==false){
+                if (asignado == false) {
                     n = 1;
-                    JOptionPane.showMessageDialog(null,"Identificación estudiante: "+identificacion+"\nNombre del estudiante: "+nombre+" "+apellido
-                        +"\nDireccion del estudiante: "+direccion+"\nEdad del estudiante: "+edad+"\nCurso del estudiante: "+curso);
-                    
-                    
-                    
+                    JOptionPane.showMessageDialog(null, "Identificación estudiante: " + identificacion + "\nNombre del estudiante: " + nombre + " " + apellido
+                            + "\nDireccion del estudiante: " + direccion + "\nEdad del estudiante: " + edad + "\nCurso del estudiante: " + curso);
+
                 }
             }
-        }
-          catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-        }catch(EOFException e){
+        } catch (EOFException e) {
             System.out.println("Fin del Archivo");
-        }catch(IOException e){   
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
-        
-        finally{
-            try{
-                if(fil!=null){
+        } finally {
+            try {
+                if (fil != null) {
                     fil.close();
                 }
-                if(dat != null){
+                if (dat != null) {
                     dat.close();
                 }
-                if(n==0){
-                    JOptionPane.showMessageDialog(null,"No hay estudiantes sin cupo");
+                if (n == 0) {
+                    JOptionPane.showMessageDialog(null, "No hay estudiantes sin cupo");
                 }
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
-            
+
         }
     }
-    
-}
-    
 
+}

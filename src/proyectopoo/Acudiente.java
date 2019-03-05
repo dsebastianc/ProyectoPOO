@@ -19,164 +19,148 @@ import javax.swing.JOptionPane;
  * @author estudiantes
  */
 public class Acudiente extends Persona {
-    
+
     int telefono;
     int ingresos;
     int tipo_acu;
 
-    public Acudiente(){
-        
+    public Acudiente() {
+
     }
-    
+
     public Acudiente(int identificacion, String apellido, String nombre, int telefono, int ingresos, int tipo_acu) {
         super(identificacion, apellido, nombre);
         this.telefono = telefono;
         this.ingresos = ingresos;
         this.tipo_acu = tipo_acu;
-        
+
     }
-  
-    void registroAcudiente(){  
+
+    void registroAcudiente() {
         FileOutputStream file = null;
         DataOutputStream data = null;
         int n;
-        
-        try{
-            file = new FileOutputStream("registroacudiente.dat",true);
+
+        try {
+            file = new FileOutputStream("registroacudiente.dat", true);
             data = new DataOutputStream(file);
-                  
-            
+
             data.writeInt(identificacion);
             data.writeUTF(apellido);
             data.writeUTF(nombre);
             data.writeInt(telefono);
             data.writeInt(ingresos);
             data.writeInt(tipo_acu);
-            
-            
-        }
-        catch(FileNotFoundException e){
+
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }catch(Exception e1){   //Los dos primeros puedene ser ignorados
-            System.out.println("Error Ingreso de datos "+e1.getMessage());
-        }
-        finally{
-            try{
-                if(file!=null){
+        } catch (Exception e1) {   //Los dos primeros puedene ser ignorados
+            System.out.println("Error Ingreso de datos " + e1.getMessage());
+        } finally {
+            try {
+                if (file != null) {
                     file.close();
                 }
-                if(data != null){
+                if (data != null) {
                     data.close();
                 }
-            }
-            catch (IOException e){
+                JOptionPane.showMessageDialog(null, "Estudiante y acudiente registrados con éxito");
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
-    
-    void mostrarAcudiente(){
-        
-         
-         
-         FileInputStream fil = null;
+
+    void mostrarAcudiente() {
+
+        FileInputStream fil = null;
         DataInputStream dat = null;
         int n;
-        
-        try{
+
+        try {
             fil = new FileInputStream("registroacudiente.dat");
             dat = new DataInputStream(fil);
-            
-            while(true){
+
+            while (true) {
                 identificacion = dat.readInt();
                 apellido = dat.readUTF();
                 nombre = dat.readUTF();
                 telefono = dat.readInt();
                 ingresos = dat.readInt();
                 tipo_acu = dat.readInt();
-                
-            
-                JOptionPane.showMessageDialog(null,"Identificación acudiente: "+identificacion+"\nNombre del acudiente: "+nombre+" "+apellido
-                        +"\nTelefono del acudiente: "+telefono+"\nIngresos del acudiente: "+ingresos+"\nTipo de acudiente: "+tipo_acu);
-                      //  }
+
+                JOptionPane.showMessageDialog(null, "Identificación acudiente: " + identificacion + "\nNombre del acudiente: " + nombre + " " + apellido
+                        + "\nTelefono del acudiente: " + telefono + "\nIngresos del acudiente: " + ingresos + "\nTipo de acudiente: " + tipo_acu);
+                //  }
             }
-        }
-          catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-        }catch(EOFException e){
+        } catch (EOFException e) {
             System.out.println("Fin del Archivo acudientes");
-        }catch(IOException e){   
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
-        
-        finally{
-            try{
-                if(fil!=null){
+        } finally {
+            try {
+                if (fil != null) {
                     fil.close();
                 }
-                if(dat != null){
+                if (dat != null) {
                     dat.close();
                 }
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
-  
-    void promedioIngreso(){
-         FileInputStream fil = null;
+
+    void promedioIngreso() {
+        FileInputStream fil = null;
         DataInputStream dat = null;
-        int n=0;
-        int promedio=0;
-        int total_acudi= 0;
-        
-        try{
+        int n = 0;
+        int promedio = 0;
+        int total_acudi = 0;
+
+        try {
             fil = new FileInputStream("registroacudiente.dat");
             dat = new DataInputStream(fil);
-            
-            while(true){
+
+            while (true) {
                 identificacion = dat.readInt();
                 apellido = dat.readUTF();
                 nombre = dat.readUTF();
                 telefono = dat.readInt();
                 ingresos = dat.readInt();
                 tipo_acu = dat.readInt();
-                
-            n = n + ingresos ;
+
+                n = n + ingresos;
                 total_acudi++;
-                
+
             }
-        }
-          catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-        }catch(EOFException e){
+        } catch (EOFException e) {
             System.out.println("Fin del Archivo acudientes");
-        }catch(IOException e){   
+        } catch (IOException e) {
             System.out.println(e.getMessage());
-        }
-        
-        finally{
-            try{
-                if(fil!=null){
+        } finally {
+            try {
+                if (fil != null) {
                     fil.close();
                 }
-                if(dat != null){
+                if (dat != null) {
                     dat.close();
                 }
-            }
-            catch (IOException e){
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
-        
-        promedio = n/total_acudi ;
-        
-        JOptionPane.showMessageDialog(null,"el valos promedio de los ingresos de ls acudientes es: "+promedio );
-    
-        
+
+        promedio = n / total_acudi;
+
+        JOptionPane.showMessageDialog(null, "El valor promedio de los ingresos de los acudientes es: " + promedio);
+
     }
-    
+
 }
